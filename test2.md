@@ -1,1 +1,1 @@
-testing async
+test async 2
