@@ -28,6 +28,10 @@
       return {
         init() {
           console.log('init');
+          
+          const res = await fetch("data.json");
+          data = await res.json();
+          console.log(data);
 
         },
       }
