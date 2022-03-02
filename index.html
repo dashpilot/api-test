@@ -26,12 +26,13 @@
  
     function app() {
       return {
+        data: false,
         init() {
           console.log('init');
           
           const res = await fetch("data.json");
-          data = await res.json();
-          console.log(data);
+          this.data = await res.json();
+          console.log(this.data);
 
         },
       }
