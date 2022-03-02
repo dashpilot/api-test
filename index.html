@@ -15,11 +15,7 @@
   
   
 <div x-data="app()">
-    <button @click="open = true">Expand</button>
- 
-    <span x-show="open">
-      Content...
-    </span>
+  <h1 x-text="title"></h1>
 </div>
   
  <script>
@@ -27,6 +23,7 @@
     async function app() {
       return {
         data: false,
+        title: "Hello World",
         init() {
           console.log('init');
           
