@@ -20,18 +20,21 @@
   
  <script>
  
-    async function app() {
+    function app() {
       return {
         data: false,
         title: "Hello World",
         init() {
           console.log('init');
           
-          const res = await fetch("data.json");
-          this.data = await res.json();
-          console.log(this.data);
+          fetch('data.json')
+              .then(res => res.json())
+              .then(data => {
+                this.data = data;
+              console.log(this.data);
+              });
 
-        },
+        }
       }
     }
 </script>
