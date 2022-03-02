@@ -19,6 +19,8 @@
 </div>
   
  <script>
+   
+   const router = new Navigo('/');
  
     function app() {
       return {
@@ -33,6 +35,12 @@
                 this.data = data;
               console.log(this.data);
               });
+          
+          router.on('/about', function () {
+           console.log('about');
+          });
+          
+          router.resolve();
 
         }
       }
