@@ -30,7 +30,7 @@
     <div class="container" id="main">
       <nav class="text-center mb-5">
         <template x-for="item in $store.page.data.categories">
-          <a :href="'/#/p/'+item.slug" x-text="item.title"></a>
+          <a :href="'#/p/'+item.slug" x-text="item.title"></a>
         </template>
       </nav>
 
