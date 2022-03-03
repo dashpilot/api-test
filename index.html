@@ -44,7 +44,7 @@
             <template x-if="item.type == 'post'">
               <div class="col-md-4">
                 <template x-if="item.gallery">
-                  <a :href="'#/work/'+item.id"><img :src="'/'+item.gallery[0].filename" class="img-fluid" /></a>
+                  <a :href="'/work/'+item.id"><img :src="'/'+item.gallery[0].filename" class="img-fluid" /></a>
                 </template>
               </div>
             </template>
@@ -68,7 +68,7 @@
           <h1 x-text="$store.page.curItem.title"></h1>
 
           <template x-for="img in $store.page.curItem.gallery">
-            <img :src="img.filename" />
+            <img :src="'/'+img.filename" />
           </template>
 
           <div x-html="$store.page.curItem.body"></div>
