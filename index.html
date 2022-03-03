@@ -65,8 +65,7 @@
         <div>
           <h1 x-text="$store.page.curItem.title"></h1>
 
-          <template x-for="img in $store.page.curItem.Gallery">
-
+          <template x-for="img in $store.page.curItem.gallery">
             <img :src="img.filename" />
           </template>
 
