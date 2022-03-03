@@ -39,7 +39,7 @@
           <template x-for="item in $store.page.curPage">
             <div class="col-md-4">
               <template x-if="item.Gallery">
-                <a :href="'/#/work/'+item.id"><img :src="item.Gallery[0].filename" class="img-fluid" /></a>
+                <a :href="'#/work/'+item.id"><img :src="item.Gallery[0].filename" class="img-fluid" /></a>
               </template>
             </div>
           </template>
