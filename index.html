@@ -38,9 +38,9 @@
 
       <template x-if="$store.page.curPage">
 
-
+  <div class="row">
         <template x-for="item in $store.page.curPage">
-          <div class="row">
+        
             <template x-if="item.type == 'post'">
               <div class="col-md-4">
                 <template x-if="item.gallery">
@@ -49,15 +49,17 @@
               </div>
             </template>
 
+            <!--
             <template x-if="item.type == 'page'">
               <div>
                 <h1 x-text="item.title"></h1>
                 <div x-html="item.body"></div>
               </div>
             </template>
-          </div>
+-->
+          
         </template>
-
+</div>
       </template>
 
       <template x-if="$store.page.curItem">
@@ -128,9 +130,7 @@
       });
 
 
-      const router = new Navigo('/', {
-        hash: true
-      });
+      const router = new Navigo('/');
 
       router.on('/', function() {
         Alpine.store('page').current = 'home';
