@@ -14,17 +14,26 @@
 <body>
   
   
-<div x-data="app()">
-  <h1 x-text="title"></h1>
+<div x-data="app()" id="app">
+  
+  <template x-if="page=='home'">
+    <h1 x-text="title"></h1>
+  </template>
+                      
+   <template x-if="page=='about'">
+    <h1>About</h1>
+  </template>                    
+                      
 </div>
   
  <script>
    
-   const router = new Navigo('/');
+   
  
     function app() {
       return {
         data: false,
+        page: 'home',
         title: "Hello World",
         init() {
           console.log('init');
@@ -36,15 +45,22 @@
               console.log(this.data);
               });
           
-          router.on('/about', function () {
-           console.log('about');
-          });
-          
-          router.resolve();
+       
 
         }
       }
     }
+   
+const router = new Navigo('/');
+   
+router.on('/about', function () {
+    console.log('about');
+    document.getElementById('app').__x.$data.page = 'about';
+});
+          
+router.resolve();
+   
+   
 </script>
   
   
