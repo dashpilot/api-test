@@ -43,8 +43,8 @@
           <template x-for="item in $store.page.curPage">
             <template x-if="item.type == 'post'">
               <div class="col-md-4">
-                <template x-if="item.Gallery">
-                  <a :href="'#/work/'+item.id"><img :src="item.Gallery[0].filename" class="img-fluid" /></a>
+                <template x-if="item.gallery">
+                  <a :href="'#/work/'+item.id"><img :src="item.gallery[0].filename" class="img-fluid" /></a>
                 </template>
               </div>
             </template>
