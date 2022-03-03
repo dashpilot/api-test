@@ -47,7 +47,14 @@
         <template x-if="$store.page.curItem">
 
           <div>
-            <h2 x-text="$store.page.curItem.title"></h2>
+            <h1 x-text="$store.page.curItem.title"></h1>
+
+            <template x-for="img in $store.page.curItem.Gallery">
+
+              <img :src="img.filename" />
+            </template>
+
+            <div x-html="$store.page.curItem.body"></div>
           </div>
 
         </template>
@@ -100,6 +107,7 @@
           } else {
             this.curPage = false;
             this.curItem = this.data.posts.filter(x => x.id == cur)[0];
+            console.log(this.curItem);
           }
         }
       });
