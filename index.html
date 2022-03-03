@@ -36,6 +36,7 @@
 
       <div class="row">
         <template x-if="$store.page.curPage">
+          <div>
           
           <template x-if="$store.page.curPage.type == 'post'">
           <template x-for="item in $store.page.curPage">
@@ -54,6 +55,7 @@
             </template>
           </template>
           
+          </div>
         </template>
         <template x-if="$store.page.curItem">
 
