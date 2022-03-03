@@ -98,8 +98,8 @@
             .then(res => res.json())
             .then(data => {
               this.data = data;
-              if (location.hash) {
-                let parts = location.hash.split('/');
+              if (window.location.pathname) {
+                let parts = window.location.pathname.split('/');
                 if (parts[1] == 'p') {
                   this.setCurData('page', parts[2]);
                 } else {
