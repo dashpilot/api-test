@@ -36,6 +36,8 @@
 
       <div class="row">
         <template x-if="$store.page.curPage">
+          
+          <template x-if="$store.page.curPage.type == 'post'">
           <template x-for="item in $store.page.curPage">
             <div class="col-md-4">
               <template x-if="item.Gallery">
@@ -43,6 +45,15 @@
               </template>
             </div>
           </template>
+          </template>
+          
+           <template x-if="$store.page.curPage.type == 'page'">
+            <template x-for="item in $store.page.curPage">
+              <h1 x-text="item.title"></h1>
+              <div x-html="item.body"></div>
+            </template>
+          </template>
+          
         </template>
         <template x-if="$store.page.curItem">
 
