@@ -6,64 +6,140 @@
   <title>Untitled Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+  <link href="/assets/style.css" rel="stylesheet" />
+
   <script src="//unpkg.com/navigo"></script>
   <script src="//unpkg.com/alpinejs" defer></script>
-  
+
 </head>
 
 <body>
-  
-  
-<div x-data="app()" id="app">
-  
-  <template x-if="page=='home'">
-    <h1 x-text="title"></h1>
-  </template>
-                      
-   <template x-if="page=='about'">
-    <h1>About</h1>
-  </template>                    
-                      
-</div>
-  
- <script>
-   
-   
- 
+
+
+
+  <div x-data="app()" id="app">
+
+
+    <header>
+      <a href="/"><img src="https://www.gemmapauwels.com/assets/logo.jpg" class="logo" /></a>
+    </header>
+
+
+
+
+    <div class="container" id="main">
+      <nav class="text-center mb-5">
+        <template x-for="item in $store.page.data.categories">
+          <a :href="'/#/p/'+item.slug" x-text="item.title"></a>
+        </template>
+      </nav>
+
+      <div class="row">
+        <template x-if="$store.page.curPage">
+          <template x-for="item in $store.page.curPage">
+            <div class="col-md-4">
+              <template x-if="item.Gallery">
+                <a :href="'/#/work/'+item.id"><img :src="item.Gallery[0].filename" class="img-fluid" /></a>
+              </template>
+            </div>
+          </template>
+        </template>
+        <template x-if="$store.page.curItem">
+
+          <div>
+            <h2 x-text="$store.page.curItem.title"></h2>
+          </div>
+
+        </template>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
     function app() {
       return {
-        data: false,
-        page: 'home',
-        title: "Hello World",
         init() {
           console.log('init');
-          
-          fetch('data.json')
-              .then(res => res.json())
-              .then(data => {
-                this.data = data;
-              console.log(this.data);
-              });
-          
-       
-
         }
       }
     }
-   
-const router = new Navigo('/');
-   
-router.on('/about', function () {
-    console.log('about');
-    document.getElementById('app').__x.$data.page = 'about';
-});
-          
-router.resolve();
-   
-   
-</script>
-  
-  
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('page', {
+        init() {
+          console.log('store init')
+          fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+              this.data = data;
+              if (location.hash) {
+                let parts = location.hash.split('/');
+                if (parts[1] == 'p') {
+                  this.setCurData('page', parts[2]);
+                } else {
+                  this.setCurData('item', parts[2]);
+                }
+
+              } else {
+                this.setCurData('page', 'home');
+              }
+
+              console.log(this.data);
+            });
+        },
+        data: false,
+        current: "home",
+        curPage: false,
+        curItem: false,
+        setCurData(type, cur) {
+          if (type == 'page') {
+            this.curItem = false;
+            this.curPage = this.data.posts.filter(x => x.category == cur);
+          } else {
+            this.curPage = false;
+            this.curItem = this.data.posts.filter(x => x.id == cur)[0];
+          }
+        }
+      });
+
+
+      const router = new Navigo('/', {
+        hash: true
+      });
+
+      router.on('/', function() {
+        Alpine.store('page').current = 'home';
+        if (Alpine.store('page').data) {
+          Alpine.store('page').setCurData('page', 'home');
+        }
+      });
+
+      router.on('/work/:id', function(data) {
+
+        console.log(data.data.id);
+        if (Alpine.store('page').data) {
+          Alpine.store('page').setCurData('id', data.data.id);
+        }
+
+      });
+
+      router.on('/p/:page', function(data) {
+        console.log(data.data.page);
+        Alpine.store('page').current = data.data.page;
+        if (Alpine.store('page').data) {
+          Alpine.store('page').setCurData('page', data.data.page);
+        }
+      });
+
+
+      router.resolve();
+
+    })
+  </script>
+
+
 </body>
 
 </html>
